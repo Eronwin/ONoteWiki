@@ -1,0 +1,2012 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="kekao">
+      
+      
+        <link rel="canonical" href="https://eronwin.github.io/ONoteWiki/Machine_Learning/cheatsheet/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+    
+    
+      
+        <title>总结 - kekao's Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.975780f9.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.2505c338.min.css">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="None" data-md-color-accent="None">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="kekao&#39;s Blog" class="md-header__button md-logo" aria-label="kekao's Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            kekao's Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              总结
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        Home
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../Advanced_programming_language/" class="md-tabs__link">
+        Advanced Language
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../Algorithm/" class="md-tabs__link">
+        Algorithm
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../" class="md-tabs__link">
+        Machine_Learning
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../Work/" class="md-tabs__link">
+        Work
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="kekao&#39;s Blog" class="md-nav__button md-logo" aria-label="kekao's Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    kekao's Blog
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../..">Home</a>
+          
+            <label for="__nav_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Home" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Home
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Author/" class="md-nav__link">
+        Author
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Advanced_programming_language/">Advanced Language</a>
+          
+            <label for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Advanced Language" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Advanced Language
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Advanced_programming_language/C%2B%2B/" class="md-nav__link">
+        C++
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Advanced_programming_language/Golang/" class="md-nav__link">
+        Golang
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Advanced_programming_language/Python/" class="md-nav__link">
+        Python
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_5">
+          Html+Css+Js
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Html+Css+Js" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Html+Css+Js
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Advanced_programming_language/Html/" class="md-nav__link">
+        Html
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Advanced_programming_language/Css/" class="md-nav__link">
+        Css
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Advanced_programming_language/JavaScript/" class="md-nav__link">
+        JavaScript
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Advanced_programming_language/lua/" class="md-nav__link">
+        Lua
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Advanced_programming_language/TypeScript/" class="md-nav__link">
+        TypeScript
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Algorithm/">Algorithm</a>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Algorithm" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Algorithm
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../">Machine_Learning</a>
+          
+            <label for="__nav_4">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Machine_Learning" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Machine_Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" checked>
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_2">
+          Utils
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Utils" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Utils
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BD%BF%E7%94%A8SWIG%20%E6%8F%90%E4%BE%9Bpython%E4%B8%8Ec%2B%2B%E9%80%9A%E4%BF%A1%20%E4%BB%A5%E5%A4%87%E5%8A%A0%E9%80%9F%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        SWIG
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_3">
+          Mathematical
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Mathematical" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          Mathematical
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1.Intro_Math/" class="md-nav__link">
+        1.Intro_Math
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.LinearRegression/" class="md-nav__link">
+        2.LinearRegression
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.LinearClassification/" class="md-nav__link">
+        3.LinearClassification
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4.DimentionReduction/" class="md-nav__link">
+        4.DimentionReduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5.SVM/" class="md-nav__link">
+        5.SVM
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.Exponentialfamily/" class="md-nav__link">
+        6.Exponentialfamily
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Work/">Work</a>
+          
+            <label for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Work" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Work
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Work/byte%20dance%20%E6%95%B0%E6%8D%AE%E5%86%B7%E7%83%AD%E5%88%86%E7%A6%BB/" class="md-nav__link">
+        数据冷热分离(bytedance)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#math" class="md-nav__link">
+    Math
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linear-regression" class="md-nav__link">
+    Linear Regression
+  </a>
+  
+    <nav class="md-nav" aria-label="Linear Regression">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#model" class="md-nav__link">
+    Model
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loss-function" class="md-nav__link">
+    Loss Function
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    闭式解
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    正则化
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linear-classification" class="md-nav__link">
+    Linear Classification
+  </a>
+  
+    <nav class="md-nav" aria-label="Linear Classification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hard" class="md-nav__link">
+    Hard
+  </a>
+  
+    <nav class="md-nav" aria-label="Hard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pca" class="md-nav__link">
+    PCA
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fisher" class="md-nav__link">
+    Fisher
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#soft" class="md-nav__link">
+    Soft
+  </a>
+  
+    <nav class="md-nav" aria-label="Soft">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    判别模型
+  </a>
+  
+    <nav class="md-nav" aria-label="判别模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#logistic-regression" class="md-nav__link">
+    Logistic Regression
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    生成模型
+  </a>
+  
+    <nav class="md-nav" aria-label="生成模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gda" class="md-nav__link">
+    GDA
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#naive-bayesian" class="md-nav__link">
+    Naive Bayesian
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dimension-reduction" class="md-nav__link">
+    Dimension Reduction
+  </a>
+  
+    <nav class="md-nav" aria-label="Dimension Reduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pca_1" class="md-nav__link">
+    PCA
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#p-pca" class="md-nav__link">
+    p-PCA
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#svm" class="md-nav__link">
+    SVM
+  </a>
+  
+    <nav class="md-nav" aria-label="SVM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hard-margin" class="md-nav__link">
+    Hard-margin
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#soft-margin" class="md-nav__link">
+    Soft-margin
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kernel" class="md-nav__link">
+    Kernel
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exp-family" class="md-nav__link">
+    Exp Family
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pgm" class="md-nav__link">
+    PGM
+  </a>
+  
+    <nav class="md-nav" aria-label="PGM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#representation" class="md-nav__link">
+    Representation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#learning" class="md-nav__link">
+    Learning
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inference" class="md-nav__link">
+    Inference
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gmm" class="md-nav__link">
+    GMM
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-hmmldsparticle" class="md-nav__link">
+    序列模型-HMM，LDS，Particle
+  </a>
+  
+    <nav class="md-nav" aria-label="序列模型-HMM，LDS，Particle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-hmm" class="md-nav__link">
+    离散线性隐变量-HMM
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-lds" class="md-nav__link">
+    连续线性隐变量-LDS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    连续非线性隐变量-粒子滤波
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crf" class="md-nav__link">
+    CRF
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="_1">总结</h1>
+<h2 id="math">Math</h2>
+<ol>
+<li>
+<p>MLE
+    $$
+    \theta_{MLE}=\mathop{argmax}\limits <em iid="iid">{\theta}\log p(X|\theta)\mathop{=}\limits </em>\mathop{argmax}\limits <em i="1">{\theta}\sum\limits </em>^{N}\log p(x_{i}|\theta)
+    $$</p>
+</li>
+<li>
+<p>MAP
+    $$
+    \theta_{MAP}=\mathop{argmax}\limits <em _theta="\theta">{\theta}p(\theta|X)=\mathop{argmax}\limits </em>p(X|\theta)\cdot p(\theta)
+    $$</p>
+</li>
+<li>
+<p>Gaussian Distribution
+    $$
+    \begin{align}&amp;p(x|\mu,\Sigma)=\frac{1}{(2\pi)^{p/2}|\Sigma|^{1/2}}e^{-\frac{1}{2}(x-\mu)^{T}\Sigma^{-1}(x-\mu)}\
+    &amp;\Delta=(x-\mu)^{T}\Sigma^{-1}(x-\mu)=\sum\limits <em i="i">{i=1}^{p}(x-\mu)^{T}u</em>\frac{1}{\lambda_{i}}u_{i}^{T}(x-\mu)=\sum\limits <em i="i">{i=1}^{p}\frac{y</em>^{2}}{\lambda_{i}}
+    \end{align}
+    $$</p>
+</li>
+<li>
+<p>已知 <span class="arithmatex">\(x\sim\mathcal{N}(\mu,\Sigma), y\sim Ax+b\)</span>，有：
+    $$
+    \begin{align}y\sim\mathcal{N}(A\mu+b, A\Sigma A^T)
+    \end{align}
+    $$</p>
+</li>
+<li>
+<p>记 <span class="arithmatex">\(x=(x_1, x_2,\cdots,x_p)^T=(x_{a,m\times 1}, x_{b,n\times1})^T,\mu=(\mu_{a,m\times1}, \mu_{b,n\times1}),\Sigma=\begin{pmatrix}\Sigma_{aa}&amp;\Sigma_{ab}\\\Sigma_{ba}&amp;\Sigma_{bb}\end{pmatrix}\)</span>，已知 <span class="arithmatex">\(x\sim\mathcal{N}(\mu,\Sigma)\)</span>，则：
+    $$
+    \begin{align}&amp;x_a\sim\mathcal{N}(\mu_a,\Sigma_{aa})\
+    &amp;x_b|x_a\sim\mathcal{N}(\mu_{b|a},\Sigma_{b|a})\
+    &amp;\mu_{b|a}=\Sigma_{ba}\Sigma_{aa}^{-1}(x_a-\mu_a)+\mu_b\
+    &amp;\Sigma_{b|a}=\Sigma_{bb}-\Sigma_{ba}\Sigma_{aa}^{-1}\Sigma_{ab}
+    \end{align}
+    $$</p>
+</li>
+</ol>
+<h2 id="linear-regression">Linear Regression</h2>
+<h3 id="model">Model</h3>
+<ol>
+<li>
+<p>Dataset: 
+    $$
+    \mathcal{D}={(x_1, y_1),(x_2, y_2),\cdots,(x_N, y_N)}
+    $$</p>
+</li>
+<li>
+<p>Notation:
+    $$
+    X=(x_1,x_2,\cdots,x_N)^T,Y=(y_1,y_2,\cdots,y_N)^T
+    $$</p>
+</li>
+<li>
+<p>Model:
+    $$
+    f(w)=w^Tx
+    $$</p>
+</li>
+</ol>
+<h3 id="loss-function">Loss Function</h3>
+<ol>
+<li>最小二乘误差/高斯噪声的MLE
+    $$
+    L(w)=\sum\limits_{i=1}^N||w^Tx_i-y_i||^2_2
+    $$</li>
+</ol>
+<h3 id="_2">闭式解</h3>
+<div class="arithmatex">\[
+\begin{align}\hat{w}=(X^TX)^{-1}X^TY=X^+Y\\
+X=U\Sigma V^T\\
+X^+=V\Sigma^{-1}U^T
+\end{align}
+\]</div>
+<h3 id="_3">正则化</h3>
+<div class="arithmatex">\[
+\begin{align}
+L1-Gaussian \ priori&amp;:\mathop{argmin}\limits_wL(w)+\lambda||w||_1,\lambda\gt0\\
+L2-Laplasian\ priori-Sparsity&amp;:\mathop{argmin}\limits_wL(w)+\lambda||w||^2_2,\lambda \gt 0
+\end{align}
+\]</div>
+<h2 id="linear-classification">Linear Classification</h2>
+<h3 id="hard">Hard</h3>
+<h4 id="pca">PCA</h4>
+<ol>
+<li>
+<p>Idea: 在线性模型上加入激活函数</p>
+</li>
+<li>
+<p>Loss Function:</p>
+</li>
+</ol>
+<div class="arithmatex">\[
+L(w)=\sum\limits_{x_i\in\mathcal{D}_{wrong}}-y_iw^Tx_i
+\]</div>
+<ol>
+<li>Parameters:</li>
+</ol>
+<div class="arithmatex">\[
+w^{t+1}\leftarrow w^{t}+\lambda y_ix_i
+\]</div>
+<h4 id="fisher">Fisher</h4>
+<ol>
+<li>
+<p>Idea: 投影，类内小，类间大。</p>
+</li>
+<li>
+<p>Loss Function:
+    $$
+    \begin{align}&amp;J(w)=\frac{w^TS_bw}{w^TS_ww}\
+    &amp;S_b=(\overline{x_{c1}}-\overline{x_{c2}})(\overline{x_{c1}}-\overline{x_{c2}})^T\
+    &amp;S_w=S_1+S_2
+    \end{align}
+    $$</p>
+</li>
+<li>
+<p>闭式解，投影方向:
+    $$
+    S_w^{-1}(\overline{x_{c1}}-\overline{x_{c2}})
+    $$</p>
+</li>
+</ol>
+<h3 id="soft">Soft</h3>
+<h4 id="_4">判别模型</h4>
+<h5 id="logistic-regression">Logistic Regression</h5>
+<ol>
+<li>
+<p>Idea，激活函数:
+    $$
+    \begin{align}p(C_1|x)&amp;=\frac{1}{1+\exp(-a)}\
+    a&amp;=w^Tx
+    \end{align}
+    $$</p>
+</li>
+<li>
+<p>Loss Function(交叉熵):
+    $$
+    \hat{w}=\mathop{argmax}<em i="1">wJ(w)=\mathop{argmax}_w\sum\limits</em>^N(y_i\log p_1+(1-y_i)\log p_0)
+    $$</p>
+</li>
+<li>
+<p>解法，SGD
+    $$
+    J'(w)=\sum\limits_{i=1}^N(y_i-p_1)x_i
+    $$</p>
+</li>
+</ol>
+<h4 id="_5">生成模型</h4>
+<h5 id="gda">GDA</h5>
+<ol>
+<li>
+<p>Model</p>
+<ol>
+<li><span class="arithmatex">\(y\sim Bernoulli(\phi)\)</span></li>
+<li><span class="arithmatex">\(x|y=1\sim\mathcal{N}(\mu_1,\Sigma)\)</span></li>
+<li><span class="arithmatex">\(x|y=0\sim\mathcal{N}(\mu_0,\Sigma)\)</span></li>
+</ol>
+</li>
+<li>
+<p>MAP
+    $$
+    \begin{align}
+    &amp;\mathop{argmax}<em _phi_mu_0_mu_1_Sigma="\phi,\mu_0,\mu_1,\Sigma">{\phi,\mu_0,\mu_1,\Sigma}\log p(X|Y)p(Y)\nonumber\
+    &amp;=\mathop{argmax}</em>\sum\limits_{i=1}^N((1-y_i)\log\mathcal{N}(\mu_0,\Sigma)+y_i\log \mathcal{N}(\mu_1,\Sigma)+y_i\log\phi+(1-y_i)\log(1-\phi))
+    \end{align}
+    $$</p>
+</li>
+<li>
+<p>解
+    $$
+    \begin{align}\phi&amp;=\frac{N_1}{N}\
+    \mu_1&amp;=\frac{\sum\limits_{i=1}^Ny_ix_i}{N_1}\
+    \mu_0&amp;=\frac{\sum\limits_{i=1}^N(1-y_i)x_i}{N_0}\
+    \Sigma&amp;=\frac{N_1S_1+N_2S_2}{N}
+    \end{align}
+    $$</p>
+</li>
+</ol>
+<h5 id="naive-bayesian">Naive Bayesian</h5>
+<ol>
+<li>
+<p>Model, 对单个数据点的各个维度作出限制
+    $$
+    x_i\perp x_j|y,\forall\  i\ne j
+    $$</p>
+<ol>
+<li><span class="arithmatex">\(x_i\)</span>为连续变量：<span class="arithmatex">\(p(x_i|y)=\mathcal{N}(\mu_i,\sigma_i^2)\)</span></li>
+<li><span class="arithmatex">\(x_i\)</span>为离散变量：类别分布（Categorical）：<span class="arithmatex">\(p(x_i=i|y)=\theta_i,\sum\limits_{i=1}^K\theta_i=1\)</span></li>
+<li><span class="arithmatex">\(p(y)=\phi^y(1-\phi)^{1-y}\)</span></li>
+</ol>
+</li>
+<li>
+<p>解：和GDA相同</p>
+</li>
+</ol>
+<h2 id="dimension-reduction">Dimension Reduction</h2>
+<p>中心化：
+$$
+\begin{align}S
+&amp;=\frac{1}{N}X^T(E_N-\frac{1}{N}\mathbb{I}<em 1N="1N">{N1}\mathbb{I}</em>)(E_N-\frac{1}{N}\mathbb{I}<em 1N="1N">{N1}\mathbb{I}</em>)^TX\nonumber\
+&amp;=\frac{1}{N}X^TH^2X=\frac{1}{N}X^THX
+\end{align}
+$$</p>
+<h3 id="pca_1">PCA</h3>
+<ol>
+<li>
+<p>Idea: 坐标变换，寻找线性无关的新基矢，取信息损失最小的前几个维度</p>
+</li>
+<li>
+<p>Loss Function:
+    $$
+    \begin{align}J
+    &amp;=\sum\limits_{j=1}^qu_j^TSu_j\ ,\ s.t.\ u_j^Tu_j=1
+    \end{align}
+    $$</p>
+</li>
+<li>
+<p>解：</p>
+<ol>
+<li>
+<p>特征分解法
+    $$
+    S=U\Lambda U^T
+    $$</p>
+</li>
+<li>
+<p>SVD for X/S
+    $$
+    \begin{align}HX=U\Sigma V^T\
+    S=\frac{1}{N}V\Sigma^T\Sigma V^T
+    \new\ co=HX\cdot V\end{align}
+    $$</p>
+</li>
+<li>
+<p>SVD for T
+    $$
+    \begin{align}T=HXX^TH=U\Sigma\Sigma^TU^T\
+    new\ co=U\Sigma
+    \end{align}
+    $$</p>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="p-pca">p-PCA</h3>
+<ol>
+<li>
+<p>Model:
+    $$
+    \begin{align}
+    z&amp;\sim\mathcal{N}(\mathbb{O}<em qq="qq">{q1},\mathbb{I}</em>)\
+    x&amp;=Wz+\mu+\varepsilon\
+    \varepsilon&amp;\sim\mathcal{N}(0,\sigma^2\mathbb{I}_{pp})
+    \end{align}
+    $$</p>
+</li>
+<li>
+<p>Learning: E-M</p>
+</li>
+<li>
+<p>Inference:
+    $$
+    p(z|x)=\mathcal{N}(W^T(WW^T+\sigma^2\mathbb{I})^{-1}(x-\mu),\mathbb{I}-W^T(WW^T+\sigma^2\mathbb{I})^{-1}W)
+    $$</p>
+</li>
+</ol>
+<h2 id="svm">SVM</h2>
+<ol>
+<li>强对偶关系：凸优化+（松弛）Slater 条件-&gt;强对偶。</li>
+<li>参数求解：KKT条件<ol>
+<li>可行域</li>
+<li>互补松弛+梯度为0</li>
+</ol>
+</li>
+</ol>
+<h3 id="hard-margin">Hard-margin</h3>
+<ol>
+<li>
+<p>Idea: 最大化间隔</p>
+</li>
+<li>
+<p>Model:
+    $$
+    \mathop{argmin}_{w,b}\frac{1}{2}w^Tw\ s.t.\ y_i(w^Tx_i+b)\ge1,i=1,2,\cdots,N
+    $$</p>
+</li>
+<li>
+<p>对偶问题
+    $$
+    \max_{\lambda}-\frac{1}{2}\sum\limits_{i=1}^N\sum\limits_{j=1}^N\lambda_i\lambda_jy_iy_jx_i^Tx_j+\sum\limits_{i=1}^N\lambda_i,\ s.t.\ \lambda_i\ge0
+    $$</p>
+</li>
+<li>
+<p>模型参数
+    $$
+    \hat{w}=\sum\limits_{i=1}^N\lambda_iy_ix_i\
+    \hat{b}=y_k-w^Tx_k=y_k-\sum\limits_{i=1}^N\lambda_iy_ix_i^Tx_k,\exist k,1-y_k(w^Tx_k+b)=0
+    $$</p>
+</li>
+</ol>
+<h3 id="soft-margin">Soft-margin</h3>
+<ol>
+<li>
+<p>Idea:允许少量错误</p>
+</li>
+<li>
+<p>Model:
+    $$
+    error=\sum\limits_{i=1}^N\max{0,1-y_i(w^Tx_i+b)}\
+    \mathop{argmin}<em i="1">{w,b}\frac{1}{2}w^Tw+C\sum\limits</em>^N\xi_i\ s.t.\ y_i(w^Tx_i+b)\ge1-\xi_i,\xi_i\ge0,i=1,2,\cdots,N
+    $$</p>
+</li>
+</ol>
+<h3 id="kernel">Kernel</h3>
+<p>对称的正定函数都可以作为正定核。</p>
+<h2 id="exp-family">Exp Family</h2>
+<ol>
+<li>
+<p>表达式
+    $$
+    p(x|\eta)=h(x)\exp(\eta^T\phi(x)-A(\eta))=\frac{1}{\exp(A(\eta))}h(x)\exp(\eta^T\phi(x))
+    $$</p>
+</li>
+<li>
+<p>对数配分函数
+    $$
+    \begin{align} 
+    A'(\eta)=\mathbb{E}<em p_x_eta_="p(x|\eta)">{p(x|\eta)}[\phi(x)]\
+    A''(\eta)=Var</em>[\phi(x)]
+    \end{align}
+    $$</p>
+</li>
+<li>
+<p>指数族分布满足最大熵定理</p>
+</li>
+</ol>
+<h2 id="pgm">PGM</h2>
+<h3 id="representation">Representation</h3>
+<ol>
+<li>
+<p>有向图
+    $$
+    p(x_1,x_2,\cdots,x_p)=\prod\limits_{i=1}^pp(x_i|x_{parent(i)})
+    $$
+    D-separation
+    $$
+    p(x_i|x_{-i})=\frac{p(x)}{\int p(x)dx_{i}}=\frac{\prod\limits_{j=1}^pp(x_j|x_{parents(j)})}{\int\prod\limits_{j=1}^pp(x_j|x_{parents(j)})dx_i}=\frac{p(x_i|x_{parents(i)})p(x_{child(i)}|x_i)}{\int p(x_i|x_{parents(i)})p(x_{child(i)}|x_i)dx_i}
+    $$</p>
+</li>
+<li>
+<p>无向图
+    $$
+    \begin{align}p(x)=\frac{1}{Z}\prod\limits_{i=1}^{K}\phi(x_{ci})\
+    Z=\sum\limits_{x\in\mathcal{X}}\prod\limits_{i=1}^{K}\phi(x_{ci})\
+    \phi(x_{ci})=\exp(-E(x_{ci}))
+    \end{align}
+    $$</p>
+</li>
+<li>
+<p>有向转无向</p>
+<ol>
+<li>将每个节点的父节点两两相连</li>
+<li>将有向边替换为无向边</li>
+</ol>
+</li>
+</ol>
+<h3 id="learning">Learning</h3>
+<p>参数学习-EM</p>
+<ol>
+<li>
+<p>目的：解决具有隐变量的混合模型的参数估计（极大似然估计）</p>
+</li>
+<li>
+<p>参数：
+    $$
+    \theta_{MLE}=\mathop{argmax}\limits_\theta\log p(x|\theta)
+    $$</p>
+</li>
+<li>
+<p>迭代求解：
+    $$
+    \theta^{t+1}=\mathop{argmax}\limits_{\theta}\int_z\log [p(x,z|\theta)]p(z|x,\theta^t)dz=\mathbb{E}_{z|x,\theta^t}[\log p(x,z|\theta)]
+    $$</p>
+</li>
+<li>
+<p>原理
+    $$
+    \log p(x|\theta^t)\le\log p(x|\theta^{t+1})
+    $$</p>
+</li>
+<li>
+<p>广义EM</p>
+<ol>
+<li>
+<p>E step：
+    $$
+    \hat{q}^{t+1}(z)=\mathop{argmax}_q\int_zq^t(z)\log\frac{p(x,z|\theta)}{q^t(z)}dz,fixed\ \theta
+    $$</p>
+</li>
+<li>
+<p>M step：
+    $$
+    \hat{\theta}=\mathop{argmax}_\theta \int_zq^{t+1}(z)\log\frac{p(x,z|\theta)}{q^{t+1}(z)}dz,fixed\ \hat{q}
+    $$</p>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="inference">Inference</h3>
+<ol>
+<li>
+<p>精确推断</p>
+<ol>
+<li>
+<p>VE</p>
+</li>
+<li>
+<p>BP
+    $$
+    m_{j\to i}(i)=\sum\limits_j\phi_j(j)\phi_{ij}(ij)\prod\limits_{k\in Neighbour(j)-i}m_{k\to j}(j)
+    $$</p>
+</li>
+<li>
+<p>MP
+    $$
+    m_{j\to i}=\max\limits_{j}\phi_j\phi_{ij}\prod\limits_{k\in Neighbour(j)-i}m_{k\to j}
+    $$</p>
+</li>
+</ol>
+</li>
+<li>
+<p>近似推断</p>
+<ol>
+<li>
+<p>确定性近似，VI</p>
+<ol>
+<li>
+<p>变分表达式
+    $$
+    \hat{q}(Z)=\mathop{argmax}_{q(Z)}L(q)
+    $$</p>
+</li>
+<li>
+<p>平均场近似下的 VI-坐标上升
+    $$
+    \mathbb{E}<em i_ne="i\ne" j="j">{\prod\limits</em>q_i(Z_i)}[\log p(X,Z)]=\log \hat{p}(X,Z_j)\
+    q_j(Z_j)=\hat{p}(X,Z_j)
+    $$</p>
+</li>
+<li>
+<p>SGVI-变成优化问题，重参数法
+    $$
+    \mathop{argmax}<em _phi="\phi">{q(Z)}L(q)=\mathop{argmax}</em>L(\phi)\
+    \nabla_\phi L(\phi)=\mathbb{E}<em>{q</em>\phi}[(\nabla_\phi\log q_\phi)(\log p_\theta(x^i,z)-\log q_\phi(z))]\
+    =\mathbb{E}<em>{p(\varepsilon)}[\nabla_z[\log p</em>\theta(x^i,z)-\log q_\phi(z)]\nabla_\phi g_\phi(\varepsilon,x^i)]\
+    z=g_\phi(\varepsilon,x^i),\varepsilon\sim p(\varepsilon)
+    $$</p>
+</li>
+</ol>
+</li>
+<li>
+<p>随机性近似</p>
+<ol>
+<li>
+<p>蒙特卡洛方法采样</p>
+<ol>
+<li>
+<p>CDF 采样</p>
+</li>
+<li>
+<p>拒绝采样， <span class="arithmatex">\(q(z)\)</span>，使得 <span class="arithmatex">\(\forall z_i,Mq(z_i)\ge p(z_i)\)</span>，拒绝因子：<span class="arithmatex">\(\alpha=\frac{p(z^i)}{Mq(z^i)}\le1\)</span></p>
+</li>
+<li>
+<p>重要性采样
+    $$
+    \mathbb{E}<em i="1">{p(z)}[f(z)]=\int p(z)f(z)dz=\int \frac{p(z)}{q(z)}f(z)q(z)dz\simeq\frac{1}{N}\sum\limits</em>^Nf(z_i)\frac{p(z_i)}{q(z_i)}
+    $$</p>
+</li>
+<li>
+<p>重要性重采样：重要性采样+重采样</p>
+</li>
+</ol>
+</li>
+<li>
+<p>MCMC：构建马尔可夫链概率序列，使其收敛到平稳分布 <span class="arithmatex">\(p(z)\)</span>。</p>
+<ol>
+<li>
+<p>转移矩阵（提议分布）
+    $$
+    p(z)\cdot Q_{z\to z^<em>}\alpha(z,z^</em>)=p(z^<em>)\cdot Q_{z^</em>\to z}\alpha(z^<em>,z)\
+    \alpha(z,z^</em>)=\min{1,\frac{p(z^<em>)Q_{z^</em>\to z}}{p(z)Q_{z\to z^*}}}
+    $$</p>
+</li>
+<li>
+<p>算法（MH）：</p>
+<ol>
+<li>通过在0，1之间均匀分布取点 <span class="arithmatex">\(u\)</span></li>
+<li>生成 <span class="arithmatex">\(z^*\sim Q(z^*|z^{i-1})\)</span></li>
+<li>计算 <span class="arithmatex">\(\alpha\)</span>值</li>
+<li>如果 <span class="arithmatex">\(\alpha\ge u\)</span>，则 <span class="arithmatex">\(z^i=z^*\)</span>，否则 <span class="arithmatex">\(z^{i}=z^{i-1}\)</span></li>
+</ol>
+</li>
+</ol>
+</li>
+<li>
+<p>Gibbs 采样：给定初始值 <span class="arithmatex">\(z_1^0,z_2^0,\cdots\)</span>在 <span class="arithmatex">\(t+1\)</span>时刻，采样 <span class="arithmatex">\(z_i^{t+1}\sim p(z_i|z_{-i})\)</span>，从第一个维度一个个采样。</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="gmm">GMM</h2>
+<ol>
+<li>
+<p>Model
+    $$
+    p(x)=\sum\limits_{k=1}^Kp_k\mathcal{N}(x|\mu_k,\Sigma_k)
+    $$</p>
+</li>
+<li>
+<p>求解-EM
+    $$
+    \begin{align}Q(\theta,\theta^t)&amp;=\sum\limits_z[\log\prod\limits_{i=1}^Np(x_i,z_i|\theta)]\prod \limits_{i=1}^Np(z_i|x_i,\theta^t)\nonumber\
+    &amp;=\sum\limits_z[\sum\limits_{i=1}^N\log p(x_i,z_i|\theta)]\prod \limits_{i=1}^Np(z_i|x_i,\theta^t)\nonumber\
+    &amp;=\sum\limits_{i=1}^N\sum\limits_{z_i}\log p(x_i,z_i|\theta)p(z_i|x_i,\theta^t)\nonumber\
+    &amp;=\sum\limits_{i=1}^N\sum\limits_{z_i}\log p_{z_i}\mathcal{N(x_i|\mu_{z_i},\Sigma_{z_i})}\frac{p_{z_i}^t\mathcal{N}(x_i|\mu_{z_i}^t,\Sigma_{z_i}^t)}{\sum\limits_kp_k^t\mathcal{N}(x_i|\mu_k^t,\Sigma_k^t)}
+    \end{align}
+    $$</p>
+<div class="arithmatex">\[
+p_k^{t+1}=\frac{1}{N}\sum\limits_{i=1}^Np(z_i=k|x_i,\theta^t)
+\]</div>
+</li>
+</ol>
+<h2 id="-hmmldsparticle">序列模型-HMM，LDS，Particle</h2>
+<ol>
+<li>
+<p>假设：</p>
+<ol>
+<li>
+<p>齐次 Markov 假设（未来只依赖于当前）：
+    $$
+    p(i_{t+1}|i_t,i_{t-1},\cdots,i_1,o_t,o_{t-1},\cdots,o_1)=p(i_{t+1}|i_t)
+    $$</p>
+</li>
+<li>
+<p>观测独立假设：
+    $$
+    p(o_t|i_t,i_{t-1},\cdots,i_1,o_{t-1},\cdots,o_1)=p(o_t|i_t)
+    $$</p>
+</li>
+</ol>
+</li>
+<li>
+<p>参数
+    $$
+    \lambda=(\pi,A,B)
+    $$</p>
+</li>
+</ol>
+<h3 id="-hmm">离散线性隐变量-HMM</h3>
+<ol>
+<li>
+<p>Evaluation：<span class="arithmatex">\(p(O|\lambda)\)</span>，Forward-Backward 算法
+    $$
+    p(O|\lambda)=\sum\limits_{i=1}^Np(O,i_T=q_i|\lambda)=\sum\limits_{i=1}^N\alpha_T(i)=\sum\limits_{i=1}^Nb_i(o_1)\pi_i\beta_1(i)\
+    \alpha_{t+1}(j)=\sum\limits_{i=1}^Nb_{j}(o_t)a_{ij}\alpha_t(i)\
+    \beta_t(i)=\sum\limits_{j=1}^Nb_j(o_{t+1})a_{ij}\beta_{t+1}(j)
+    $$</p>
+</li>
+<li>
+<p>Learning：<span class="arithmatex">\(\lambda=\mathop{argmax}\limits_{\lambda}p(O|\lambda)\)</span>，EM 算法（Baum-Welch）
+    $$
+    \lambda^{t+1}=\mathop{argmax}<em i_1="i_1">\lambda\sum\limits_I\log p(O,I|\lambda)p(O,I|\lambda^t)\=\sum\limits_I[\log \pi</em>+\sum\limits_{t=2}^T\log a_{i_{t-1},i_t}+\sum\limits_{t=1}^T\log b_{i_t}(o_t)]p(O,I|\lambda^t)
+    $$</p>
+</li>
+<li>
+<p>Decoding：<span class="arithmatex">\(I=\mathop{argmax}\limits_{I}p(I|O,\lambda)\)</span>，Viterbi 算法-动态规划
+    $$
+    \delta_{t}(j)=\max\limits_{i_1,\cdots,i_{t-1}}p(o_1,\cdots,o_t,i_1,\cdots,i_{t-1},i_t=q_i)\\delta_{t+1}(j)=\max\limits_{1\le i\le N}\delta_t(i)a_{ij}b_j(o_{t+1})\\psi_{t+1}(j)=\mathop{argmax}\limits_{1\le i\le N}\delta_t(i)a_{ij}
+    $$</p>
+</li>
+</ol>
+<h3 id="-lds">连续线性隐变量-LDS</h3>
+<ol>
+<li>
+<p>Model
+    $$
+    \begin{align}
+    p(z_t|z_{t-1})&amp;\sim\mathcal{N}(A\cdot z_{t-1}+B,Q)\
+    p(x_t|z_t)&amp;\sim\mathcal{N}(C\cdot z_t+D,R)\
+    z_1&amp;\sim\mathcal{N}(\mu_1,\Sigma_1)
+    \end{align}
+    $$</p>
+</li>
+<li>
+<p>滤波
+    $$
+    p(z_t|x_{1:t})=p(x_{1:t},z_t)/p(x_{1:t})\propto p(x_{1:t},z_t)\=p(x_t|z_t)p(z_t|x_{1:t-1})p(x_{1:t-1})\propto p(x_t|z_t)p(z_t|x_{1:t-1})
+    $$</p>
+</li>
+<li>
+<p>递推求解-线性高斯模型</p>
+<ol>
+<li>
+<p>Prediction
+    $$
+    p(z_t|x_{1:t-1})=\int_{z_{t-1}}p(z_t|z_{t-1})p(z_{t-1}|x_{1:t-1})dz_{t-1}=\int_{z_{t-1}}\mathcal{N}(Az_{t-1}+B,Q)\mathcal{N}(\mu_{t-1},\Sigma_{t-1})dz_{t-1}
+    $$</p>
+</li>
+<li>
+<p>Update:
+    $$
+    p(z_t|x_{1:t})\propto p(x_t|z_t)p(z_t|x_{1:t-1}
+    $$</p>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="-">连续非线性隐变量-粒子滤波</h3>
+<p>通过采样(SIR)解决：
+$$
+\mathbb{E}[f(z)]=\int_zf(z)p(z)dz=\int_zf(z)\frac{p(z)}{q(z)}q(z)dz=\sum\limits_{i=1}^Nf(z_i)\frac{p(z_i)}{q(z_i)}
+$$</p>
+<ol>
+<li>
+<p>采样
+    $$
+    w_t^i\propto\frac{p(x_t|z_t)p(z_t|z_{t-1})}{q(z_t|z_{1:t-1},x_{1:t})}w_{t-1}^i\
+    q(z_t|z_{1:t-1},x_{1:t})=p(z_t|z_{t-1})
+    $$</p>
+</li>
+<li>
+<p>重采样</p>
+</li>
+</ol>
+<h2 id="crf">CRF</h2>
+<ol>
+<li>
+<p>PDF
+    $$
+    p(Y=y|X=x)=\frac{1}{Z(x,\theta)}\exp[\theta^TH(y_t,y_{t-1},x)]
+    $$</p>
+</li>
+<li>
+<p>边缘概率
+    $$
+    p(y_t=i|x)=\sum\limits_{y_{1:t-1}}\sum\limits_{y_{t+1:T}}\frac{1}{Z}\prod\limits_{t'=1}^T\phi_{t'}(y_{t'-1},y_{t'},x)\
+    p(y_t=i|x)=\frac{1}{Z}\Delta_l\Delta_r\
+    \Delta_l=\sum\limits_{y_{1:t-1}}\phi_{1}(y_0,y_1,x)\phi_2(y_1,y_2,x)\cdots\phi_{t-1}(y_{t-2},y_{t-1},x)\phi_t(y_{t-1},y_t=i,x)\
+    \Delta_r=\sum\limits_{y_{t+1:T}}\phi_{t+1}(y_t=i,y_{t+1},x)\phi_{t+2}(y_{t+1},y_{t+2},x)\cdots\phi_T(y_{T-1},y_T,x)
+    $$</p>
+<div class="arithmatex">\[
+\alpha_t(i)=\Delta_l=\sum\limits_{j\in S}\phi_t(y_{t-1}=j,y_t=i,x)\alpha_{t-1}(j)\\
+\Delta_r=\beta_t(i)=\sum\limits_{j\in S}\phi_{t+1}(y_t=i,y_{t+1}=j,x)\beta_{t+1}(j)
+\]</div>
+</li>
+<li>
+<p>学习
+    $$
+    \nabla_\lambda L=\sum\limits_{i=1}^N\sum\limits_{t=1}^T[f(y_{t-1},y_t,x^i)-\sum\limits_{y_{t-1}}\sum\limits_{y_t}p(y_{t-1},y_t|x^i)f(y_{t-1},y_t,x^i)]
+    $$</p>
+</li>
+</ol>
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        Was this page helpful?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m7 0c0 .8-.7 1.5-1.5 1.5S14 10.3 14 9.5 14.7 8 15.5 8s1.5.7 1.5 1.5m-5 7.73c-1.75 0-3.29-.73-4.19-1.81L9.23 14c.45.72 1.52 1.23 2.77 1.23s2.32-.51 2.77-1.23l1.42 1.42c-.9 1.08-2.44 1.81-4.19 1.81Z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-6.5-4c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5-1.5-.7-1.5-1.5.7-1.5 1.5-1.5M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m2 4.5c1.75 0 3.29.72 4.19 1.81l-1.42 1.42C14.32 16.5 13.25 16 12 16s-2.32.5-2.77 1.23l-1.42-1.42C8.71 14.72 10.25 14 12 14Z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+                Thanks for your feedback!
+              
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              
+                Thanks for your feedback! Help us improve this page by using our <a href="..." target="_blank" rel="noopener">feedback form</a>.
+              
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["header.autohide", "navigation.tabs", "navigation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+    
+  </body>
+</html>

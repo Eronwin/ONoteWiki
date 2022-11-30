@@ -1,0 +1,1460 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="kekao">
+      
+      
+        <link rel="canonical" href="https://eronwin.github.io/ONoteWiki/Machine_Learning/5.SVM/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+    
+    
+      
+        <title>5.SVM - kekao's Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.975780f9.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.2505c338.min.css">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="None" data-md-color-accent="None">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="kekao&#39;s Blog" class="md-header__button md-logo" aria-label="kekao's Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            kekao's Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              5.SVM
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        Home
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../Advanced_programming_language/" class="md-tabs__link">
+        Advanced Language
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../Algorithm/" class="md-tabs__link">
+        Algorithm
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../" class="md-tabs__link md-tabs__link--active">
+        Machine_Learning
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../Work/" class="md-tabs__link">
+        Work
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="kekao&#39;s Blog" class="md-nav__button md-logo" aria-label="kekao's Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    kekao's Blog
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../..">Home</a>
+          
+            <label for="__nav_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Home" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Home
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Author/" class="md-nav__link">
+        Author
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Advanced_programming_language/">Advanced Language</a>
+          
+            <label for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Advanced Language" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Advanced Language
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Advanced_programming_language/C%2B%2B/" class="md-nav__link">
+        C++
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Advanced_programming_language/Golang/" class="md-nav__link">
+        Golang
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Advanced_programming_language/Python/" class="md-nav__link">
+        Python
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_5">
+          Html+Css+Js
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Html+Css+Js" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Html+Css+Js
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Advanced_programming_language/Html/" class="md-nav__link">
+        Html
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Advanced_programming_language/Css/" class="md-nav__link">
+        Css
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Advanced_programming_language/JavaScript/" class="md-nav__link">
+        JavaScript
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Advanced_programming_language/lua/" class="md-nav__link">
+        Lua
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Advanced_programming_language/TypeScript/" class="md-nav__link">
+        TypeScript
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Algorithm/">Algorithm</a>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Algorithm" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Algorithm
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../">Machine_Learning</a>
+          
+            <label for="__nav_4">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Machine_Learning" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Machine_Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" checked>
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_2">
+          Utils
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Utils" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Utils
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BD%BF%E7%94%A8SWIG%20%E6%8F%90%E4%BE%9Bpython%E4%B8%8Ec%2B%2B%E9%80%9A%E4%BF%A1%20%E4%BB%A5%E5%A4%87%E5%8A%A0%E9%80%9F%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        SWIG
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_3">
+          Mathematical
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Mathematical" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          Mathematical
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1.Intro_Math/" class="md-nav__link">
+        1.Intro_Math
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.LinearRegression/" class="md-nav__link">
+        2.LinearRegression
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.LinearClassification/" class="md-nav__link">
+        3.LinearClassification
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4.DimentionReduction/" class="md-nav__link">
+        4.DimentionReduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          5.SVM
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        5.SVM
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    约束优化问题
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hard-margin-svm" class="md-nav__link">
+    Hard-margin SVM
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#soft-margin-svm" class="md-nav__link">
+    Soft-margin SVM
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kernel-method" class="md-nav__link">
+    Kernel Method
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    小结
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.Exponentialfamily/" class="md-nav__link">
+        6.Exponentialfamily
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Work/">Work</a>
+          
+            <label for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Work" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Work
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Work/byte%20dance%20%E6%95%B0%E6%8D%AE%E5%86%B7%E7%83%AD%E5%88%86%E7%A6%BB/" class="md-nav__link">
+        数据冷热分离(bytedance)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    约束优化问题
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hard-margin-svm" class="md-nav__link">
+    Hard-margin SVM
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#soft-margin-svm" class="md-nav__link">
+    Soft-margin SVM
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kernel-method" class="md-nav__link">
+    Kernel Method
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    小结
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="_1">支撑向量机</h1>
+<p>支撑向量机（SVM）算法在分类问题中有着重要地位，其主要思想是最大化两类之间的间隔。按照数据集的特点：</p>
+<ol>
+<li>线性可分问题，如之前的感知机算法处理的问题</li>
+<li>线性可分，只有一点点错误点，如感知机算法发展出来的 Pocket 算法处理的问题</li>
+<li>非线性问题，完全不可分，如在感知机问题发展出来的多层感知机和深度学习</li>
+</ol>
+<p>这三种情况对于 SVM 分别有下面三种处理手段：</p>
+<ol>
+<li>hard-margin SVM</li>
+<li>soft-margin SVM</li>
+<li>kernel Method</li>
+</ol>
+<p>SVM 的求解中，大量用到了 Lagrange 乘子法，首先对这种方法进行介绍。</p>
+<h2 id="_2">约束优化问题</h2>
+<p>一般地，约束优化问题（原问题）可以写成：
+$$
+\begin{align}</p>
+<p>&amp;\min_{x\in\mathbb{R^p}}f(x)\
+&amp;s.t.\ m_i(x)\le0,i=1,2,\cdots,M\
+&amp;\ \ \ \ \ \ \ \ n_j(x)=0,j=1,2,\cdots,N</p>
+<p>\end{align}
+$$
+定义 Lagrange 函数：
+$$
+L(x,\lambda,\eta)=f(x)+\sum\limits_{i=1}^M\lambda_im_i(x)+\sum\limits_{i=1}^N\eta_in_i(x)
+$$
+那么原问题可以等价于无约束形式：
+$$
+\min_{x\in\mathbb{R}^p}\max_{\lambda,\eta}L(x,\lambda,\eta)\ s.t.\ \lambda_i\ge0
+$$
+这是由于，当满足原问题的不等式约束的时候，<span class="arithmatex">\(\lambda_i=0\)</span>才能取得最大值，直接等价于原问题，如果不满足原问题的不等式约束，那么最大值就为 <span class="arithmatex">\(+ \infty\)</span>，由于需要取最小值，于是不会取到这个情况。</p>
+<p>这个问题的对偶形式：
+$$
+\max_{\lambda,\eta}\min_{x\in\mathbb{R}^p}L(x,\lambda,\eta)\ s.t.\ \lambda_i\ge0
+$$
+对偶问题是关于 <span class="arithmatex">\(\lambda, \eta\)</span>的最大化问题。</p>
+<p>由于：
+$$
+\max_{\lambda_i,\eta_j}\min_{x}L(x,\lambda_i,\eta_j)\le\min_{x}\max_{\lambda_i,\eta_j}L(x,\lambda_i,\eta_j)
+$$</p>
+<blockquote>
+<p>证明：显然有 <span class="arithmatex">\(\min\limits_{x}L\le L\le\max\limits_{\lambda,\eta}L\)</span>，于是显然有 <span class="arithmatex">\(\max\limits_{\lambda,\eta}\min\limits_{x}L\le L\)</span>，且 <span class="arithmatex">\(\min\limits_{x}\max\limits_{\lambda,\eta}L\ge L\)</span>。</p>
+</blockquote>
+<p>对偶问题的解小于原问题，有两种情况：</p>
+<ol>
+<li>强对偶：可以取等于号</li>
+<li>弱对偶：不可以取等于号</li>
+</ol>
+<p>其实这一点也可以通过一张图来说明：</p>
+<p><img alt="originVsdual" src="../originVSdual.jpg" /></p>
+<p>对于一个凸优化问题，有如下定理：</p>
+<blockquote>
+<p>如果凸优化问题满足某些条件如 Slater 条件，那么它和其对偶问题满足强对偶关系。记问题的定义域为：<span class="arithmatex">\(\mathcal{D}=domf(x)\cap dom m_i(x)\cap domn_j(x)\)</span>。于是 Slater 条件为：
+  $$
+  \exist\hat{x}\in Relint\mathcal{D}\ s.t.\ \forall i=1,2,\cdots,M,m_i(x)\lt0
+  $$
+  其中 Relint 表示相对内部（不包含边界的内部）。</p>
+</blockquote>
+<ol>
+<li>对于大多数凸优化问题，Slater 条件成立。</li>
+<li>松弛 Slater 条件，如果 M 个不等式约束中，有 K 个函数为仿射函数，那么只要其余的函数满足 Slater 条件即可。</li>
+</ol>
+<p>上面介绍了原问题和对偶问题的对偶关系，但是实际还需要对参数进行求解，求解方法使用 KKT 条件进行：</p>
+<blockquote>
+<p>KKT 条件和强对偶关系是等价关系。KKT 条件对最优解的条件为：</p>
+<ol>
+<li>
+<p>可行域：
+      $$
+      \begin{align}
+      m_i(x^<em>)\le0\
+      n_j(x^</em>)=0\
+      \lambda^*\ge0
+      \end{align}
+      $$</p>
+</li>
+<li>
+<p>互补松弛 <span class="arithmatex">\(\lambda^*m_i(x^*)=0,\forall m_i\)</span>，对偶问题的最佳值为 <span class="arithmatex">\(d^*\)</span>，原问题为 <span class="arithmatex">\(p^*\)</span>
+      $$
+      \begin{align}
+      d^<em>&amp;=\max_{\lambda,\eta}g(\lambda,\eta)=g(\lambda^</em>,\eta^<em>)\nonumber\
+      &amp;=\min_{x}L(x,\lambda^</em>,\eta^<em>)\nonumber\
+      &amp;\le L(x^</em>,\lambda^<em>,\eta^</em>)\nonumber\
+      &amp;=f(x^<em>)+\sum\limits_{i=1}^M\lambda^</em>m_i(x^<em>)\nonumber\
+      &amp;\le f(x^</em>)=p^*
+      \end{align}
+      $$
+      为了满足相等，两个不等式必须成立，于是，对于第一个不等于号，需要有梯度为0条件，对于第二个不等于号需要满足互补松弛条件。</p>
+</li>
+<li>
+<p>梯度为0：<span class="arithmatex">\(\frac{\partial L(x,\lambda^*,\eta^*)}{\partial x}|_{x=x^*}=0\)</span></p>
+</li>
+</ol>
+</blockquote>
+<h2 id="hard-margin-svm">Hard-margin SVM</h2>
+<p>支撑向量机也是一种硬分类模型，在之前的感知机模型中，我们在线性模型的基础上叠加了符号函数，在几何直观上，可以看到，如果两类分的很开的话，那么其实会存在无穷多条线可以将两类分开。在 SVM 中，我们引入最大化间隔这个概念，间隔指的是数据和直线的距离的最小值，因此最大化这个值反映了我们的模型倾向。</p>
+<p>分割的超平面可以写为：
+$$
+0=w^Tx+b
+$$
+那么最大化间隔（约束为分类任务的要求）：
+$$
+\mathop{argmax}<em w_b="w,b">{w,b}[\min_i\frac{|w^Tx_i+b|}{||w||}]\ s.t.\ y_i(w^Tx_i+b)&gt;0\
+\Longrightarrow\mathop{argmax}</em>[\min_i\frac{y_i(w^Tx_i+b)}{||w||}]\ s.t.\ y_i(w^Tx_i+b)&gt;0
+$$
+对于这个约束 <span class="arithmatex">\(y_i(w^Tx_i+b)&gt;0\)</span>，不妨固定 <span class="arithmatex">\(\min y_i(w^Tx_i+b)=1&gt;0\)</span>，这是由于分开两类的超平面的系数经过比例放缩不会改变这个平面，这也相当于给超平面的系数作出了约束。化简后的式子可以表示为：
+$$
+\mathop{argmin}<em w_b="w,b">{w,b}\frac{1}{2}w^Tw\ s.t.\ \min_iy_i(w^Tx_i+b)=1\
+\Rightarrow\mathop{argmin}</em>\frac{1}{2}w^Tw\ s.t.\ y_i(w^Tx_i+b)\ge1,i=1,2,\cdots,N
+$$
+这就是一个包含 <span class="arithmatex">\(N\)</span>个约束的凸优化问题，有很多求解这种问题的软件。</p>
+<p>但是，如果样本数量或维度非常高，直接求解困难甚至不可解，于是需要对这个问题进一步处理。引入 Lagrange 函数：
+$$
+L(w,b,\lambda)=\frac{1}{2}w^Tw+\sum\limits_{i=1}^N\lambda_i(1-y_i(w^Tx_i+b))
+$$
+我们有原问题就等价于：
+$$
+\mathop{argmin}<em _lambda="\lambda">{w,b}\max</em>L(w,b,\lambda_i)\ s.t.\ \lambda_i\ge0
+$$
+我们交换最小和最大值的符号得到对偶问题：
+$$
+\max_{\lambda_i}\min_{w,b}L(w,b,\lambda_i)\ s.t.\ \lambda_i\ge0
+$$
+由于不等式约束是仿射函数，对偶问题和原问题等价：</p>
+<ul>
+<li>
+<p><span class="arithmatex">\(b\)</span>：<span class="arithmatex">\(\frac{\partial}{\partial b}L=0\Rightarrow\sum\limits_{i=1}^N\lambda_iy_i=0\)</span></p>
+</li>
+<li>
+<p><span class="arithmatex">\(w\)</span>：首先将 <span class="arithmatex">\(b\)</span>代入：
+    $$
+    L(w,b,\lambda_i)=\frac{1}{2}w^Tw+\sum\limits_{i=1}^N\lambda_i(1-y_iw^Tx_i-y_ib)=\frac{1}{2}w^Tw+\sum\limits_{i=1}^N\lambda_i-\sum\limits_{i=1}^N\lambda_iy_iw^Tx_i
+    $$
+    所以：
+    $$
+    \frac{\partial}{\partial w}L=0\Rightarrow w=\sum\limits_{i=1}^N\lambda_iy_ix_i
+    $$</p>
+</li>
+<li>
+<p>将上面两个参数代入：
+    $$
+    L(w,b,\lambda_i)=-\frac{1}{2}\sum\limits_{i=1}^N\sum\limits_{j=1}^N\lambda_i\lambda_jy_iy_jx_i^Tx_j+\sum\limits_{i=1}^N\lambda_i
+    $$</p>
+</li>
+</ul>
+<p>因此，对偶问题就是：
+$$
+\max_{\lambda}-\frac{1}{2}\sum\limits_{i=1}^N\sum\limits_{j=1}^N\lambda_i\lambda_jy_iy_jx_i^Tx_j+\sum\limits_{i=1}^N\lambda_i,\ s.t.\ \lambda_i\ge0
+$$
+从 KKT 条件得到超平面的参数：</p>
+<blockquote>
+<p>原问题和对偶问题满足强对偶关系的充要条件为其满足 KKT 条件：
+  $$
+  \begin{align}
+  &amp;\frac{\partial L}{\partial w}=0,\frac{\partial L}{\partial b}=0
+  \&amp;\lambda_k(1-y_k(w^Tx_k+b))=0(slackness\ complementary)\
+  &amp;\lambda_i\ge0\
+  &amp;1-y_i(w^Tx_i+b)\le0
+  \end{align}
+  $$</p>
+</blockquote>
+<p>根据这个条件就得到了对应的最佳参数：
+$$
+\hat{w}=\sum\limits_{i=1}^N\lambda_iy_ix_i\
+\hat{b}=y_k-w^Tx_k=y_k-\sum\limits_{i=1}^N\lambda_iy_ix_i^Tx_k,\exist k,1-y_k(w^Tx_k+b)=0
+$$
+于是这个超平面的参数 <span class="arithmatex">\(w\)</span>就是数据点的线性组合，最终的参数值就是部分满足 <span class="arithmatex">\(y_i(w^Tx_i+b)=1\)</span>向量的线性组合（互补松弛条件给出），这些向量也叫支撑向量。</p>
+<h2 id="soft-margin-svm">Soft-margin SVM</h2>
+<p>Hard-margin 的 SVM 只对可分数据可解，如果不可分的情况，我们的基本想法是在损失函数中加入错误分类的可能性。错误分类的个数可以写成：
+$$
+error=\sum\limits_{i=1}^N\mathbb{I}{y_i(w^Tx_i+b)\lt1}
+$$
+这个函数不连续，可以将其改写为：
+$$
+error=\sum\limits_{i=1}^N\max{0,1-y_i(w^Tx_i+b)}
+$$
+求和符号中的式子又叫做 Hinge Function。</p>
+<p>将这个错误加入 Hard-margin SVM 中，于是：
+$$
+\mathop{argmin}<em i="1">{w,b}\frac{1}{2}w^Tw+C\sum\limits</em>^N\max{0,1-y_i(w^Tx_i+b)}\ s.t.\ y_i(w^Tx_i+b)\ge1-\xi_i,i=1,2,\cdots,N
+$$
+这个式子中，常数 <span class="arithmatex">\(C\)</span>可以看作允许的错误水平，同时上式为了进一步消除 <span class="arithmatex">\(\max\)</span>符号，对数据集中的每一个观测，我们可以认为其大部分满足约束，但是其中部分违反约束，因此这部分约束变成 <span class="arithmatex">\(y_i(w^Tx+b)\ge1-\xi_i\)</span>，其中 <span class="arithmatex">\(\xi_i=1-y_i(w^Tx_i+b)\)</span>，进一步的化简：
+$$
+\mathop{argmin}<em i="1">{w,b}\frac{1}{2}w^Tw+C\sum\limits</em>^N\xi_i\ s.t.\ y_i(w^Tx_i+b)\ge1-\xi_i,\xi_i\ge0,i=1,2,\cdots,N
+$$</p>
+<h2 id="kernel-method">Kernel Method</h2>
+<p>核方法可以应用在很多问题上，在分类问题中，对于严格不可分问题，我们引入一个特征转换函数将原来的不可分的数据集变为可分的数据集，然后再来应用已有的模型。往往将低维空间的数据集变为高维空间的数据集后，数据会变得可分（数据变得更为稀疏）：</p>
+<blockquote>
+<p>Cover TH：高维空间比低维空间更易线性可分。</p>
+</blockquote>
+<p>应用在 SVM 中时，观察上面的 SVM 对偶问题：
+$$
+\max_{\lambda}-\frac{1}{2}\sum\limits_{i=1}^N\sum\limits_{j=1}^N\lambda_i\lambda_jy_iy_jx_i^Tx_j+\sum\limits_{i=1}^N\lambda_i,\ s.t.\ \lambda_i\ge0
+$$
+在求解的时候需要求得内积，于是不可分数据在通过特征变换后，需要求得变换后的内积。我们常常很难求得变换函数的内积。于是直接引入内积的变换函数：
+$$
+\forall x,x'\in\mathcal{X},\exist\phi\in\mathcal{H}:x\rightarrow z\ s.t.\ k(x,x')=\phi(x)^T\phi(x)
+$$
+称 <span class="arithmatex">\(k(x,x')\)</span>为一个正定核函数，其中<span class="arithmatex">\(\mathcal{H}\)</span>是 Hilbert 空间（完备的线性内积空间），如果去掉内积这个条件我们简单地称为核函数。</p>
+<blockquote>
+<p><span class="arithmatex">\(k(x,x')=\exp(-\frac{(x-x')^2}{2\sigma^2})\)</span>是一个核函数。</p>
+<p>证明：
+  $$
+  \begin{align}
+  \exp(-\frac{(x-x')^2}{2\sigma^2})&amp;=\exp(-\frac{x^2}{2\sigma^2})\exp(\frac{xx'}{\sigma^2})\exp(-\frac{x'^2}{2\sigma^2})\nonumber\
+  &amp;=\exp(-\frac{x^2}{2\sigma^2})\sum\limits_{n=0}^{+\infty}\frac{x^nx'^n}{\sigma^{2n}n!}\exp(-\frac{x'^2}{2\sigma^2})\nonumber\
+  &amp;=\exp(-\frac{x^2}{2\sigma^2})\varphi(x)\varphi(x')\exp(-\frac{x'^2}{2\sigma^2})\nonumber\
+  &amp;=\phi(x)\phi(x')
+  \end{align}
+  $$</p>
+</blockquote>
+<p>正定核函数有下面的等价定义：</p>
+<blockquote>
+<p>如果核函数满足：</p>
+<ol>
+<li>对称性</li>
+<li>正定性</li>
+</ol>
+<p>那么这个核函数时正定核函数。</p>
+<p>证明：</p>
+<ol>
+<li>对称性 <span class="arithmatex">\(\Leftrightarrow\)</span><span class="arithmatex">\(k(x,z)=k(z,x)\)</span>，显然满足内积的定义</li>
+<li>正定性 <span class="arithmatex">\(\Leftrightarrow\)</span><span class="arithmatex">\(\forall N,x_1,x_2,\cdots,x_N\in\mathcal{X}\)</span>，对应的 Gram Matrix <span class="arithmatex">\(K=[k(x_i,x_j)]\)</span>是半正定的。</li>
+</ol>
+<p>要证：<span class="arithmatex">\(k(x,z)=\phi(x)^T\phi(z)\Leftrightarrow K\)</span>半正定+对称性。</p>
+<ol>
+<li>
+<p><span class="arithmatex">\(\Rightarrow\)</span>：首先，对称性是显然的，对于正定性：
+      $$
+      K=\begin{pmatrix}k(x_1,x_2)&amp;\cdots&amp;k(x_1,x_N)\\vdots&amp;\vdots&amp;\vdots\k(x_N,x_1)&amp;\cdots&amp;k(x_N,x_N)\end{pmatrix}
+      $$
+      任意取 <span class="arithmatex">\(\alpha\in\mathbb{R}^N\)</span>，即需要证明 <span class="arithmatex">\(\alpha^TK\alpha\ge0\)</span>：
+      $$
+      \alpha^TK\alpha=\sum\limits_{i,j}\alpha_i\alpha_jK_{ij}=\sum\limits_{i,j}\alpha_i\phi^T(x_i)\phi(x_j)\alpha_j=\sum\limits_{i}\alpha_i\phi^T(x_i)\sum\limits_{j}\alpha_j\phi(x_j)
+      $$
+      这个式子就是内积的形式，Hilbert 空间满足线性性，于是正定性的证。</p>
+</li>
+<li>
+<p><span class="arithmatex">\(\Leftarrow\)</span>：对于 <span class="arithmatex">\(K\)</span>进行分解，对于对称矩阵 <span class="arithmatex">\(K=V\Lambda V^T\)</span>，那么令 <span class="arithmatex">\(\phi(x_i)=\sqrt{\lambda_i}V_i\)</span>，其中 <span class="arithmatex">\(V_i\)</span>是特征向量，于是就构造了 <span class="arithmatex">\(k(x,z)=\sqrt{\lambda_i\lambda_j}V_i^TV_j\)</span></p>
+</li>
+</ol>
+</blockquote>
+<h2 id="_3">小结</h2>
+<p>分类问题在很长一段时间都依赖 SVM，对于严格可分的数据集，Hard-margin SVM 选定一个超平面，保证所有数据到这个超平面的距离最大，对这个平面施加约束，固定 <span class="arithmatex">\(y_i(w^Tx_i+b)=1\)</span>，得到了一个凸优化问题并且所有的约束条件都是仿射函数，于是满足 Slater 条件，将这个问题变换成为对偶的问题，可以得到等价的解，并求出约束参数：
+$$
+\max_{\lambda}-\frac{1}{2}\sum\limits_{i=1}^N\sum\limits_{j=1}^N\lambda_i\lambda_jy_iy_jx_i^Tx_j+\sum\limits_{i=1}^N\lambda_i,\ s.t.\ \lambda_i\ge0
+$$
+对需要的超平面参数的求解采用强对偶问题的 KKT 条件进行。
+$$
+\begin{align}
+&amp;\frac{\partial L}{\partial w}=0,\frac{\partial L}{\partial b}=0
+\&amp;\lambda_k(1-y_k(w^Tx_k+b))=0(slackness\ complementary)\
+&amp;\lambda_i\ge0\
+&amp;1-y_i(w^Tx_i+b)\le0
+\end{align}
+$$
+解就是：
+$$
+\hat{w}=\sum\limits_{i=1}^N\lambda_iy_ix_i\
+\hat{b}=y_k-w^Tx_k=y_k-\sum\limits_{i=1}^N\lambda_iy_ix_i^Tx_k,\exist k,1-y_k(w^Tx_k+b)=0
+$$
+当允许一点错误的时候，可以在 Hard-margin SVM 中加入错误项。用 Hinge Function 表示错误项的大小，得到：
+$$
+\mathop{argmin}<em i="1">{w,b}\frac{1}{2}w^Tw+C\sum\limits</em>^N\xi_i\ s.t.\ y_i(w^Tx_i+b)\ge1-\xi_i,\xi_i\ge0,i=1,2,\cdots,N
+$$
+对于完全不可分的问题，我们采用特征转换的方式，在 SVM 中，我们引入正定核函数来直接对内积进行变换，只要这个变换满足对称性和正定性，那么就可以用做核函数。</p>
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        Was this page helpful?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m7 0c0 .8-.7 1.5-1.5 1.5S14 10.3 14 9.5 14.7 8 15.5 8s1.5.7 1.5 1.5m-5 7.73c-1.75 0-3.29-.73-4.19-1.81L9.23 14c.45.72 1.52 1.23 2.77 1.23s2.32-.51 2.77-1.23l1.42 1.42c-.9 1.08-2.44 1.81-4.19 1.81Z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-6.5-4c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5-1.5-.7-1.5-1.5.7-1.5 1.5-1.5M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m2 4.5c1.75 0 3.29.72 4.19 1.81l-1.42 1.42C14.32 16.5 13.25 16 12 16s-2.32.5-2.77 1.23l-1.42-1.42C8.71 14.72 10.25 14 12 14Z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+                Thanks for your feedback!
+              
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              
+                Thanks for your feedback! Help us improve this page by using our <a href="..." target="_blank" rel="noopener">feedback form</a>.
+              
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../4.DimentionReduction/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 4.DimentionReduction" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              4.DimentionReduction
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../6.Exponentialfamily/" class="md-footer__link md-footer__link--next" aria-label="Next: 6.Exponentialfamily" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              6.Exponentialfamily
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["header.autohide", "navigation.tabs", "navigation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+    
+  </body>
+</html>

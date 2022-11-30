@@ -1,0 +1,1410 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="kekao">
+      
+      
+        <link rel="canonical" href="https://eronwin.github.io/ONoteWiki/Machine_Learning/7.PGMIntro/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+    
+    
+      
+        <title>概率图模型 - kekao's Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.975780f9.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.2505c338.min.css">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="None" data-md-color-accent="None">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="kekao&#39;s Blog" class="md-header__button md-logo" aria-label="kekao's Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            kekao's Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              概率图模型
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        Home
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../Advanced_programming_language/" class="md-tabs__link">
+        Advanced Language
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../Algorithm/" class="md-tabs__link">
+        Algorithm
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../" class="md-tabs__link">
+        Machine_Learning
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../Work/" class="md-tabs__link">
+        Work
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="kekao&#39;s Blog" class="md-nav__button md-logo" aria-label="kekao's Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    kekao's Blog
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../..">Home</a>
+          
+            <label for="__nav_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Home" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Home
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Author/" class="md-nav__link">
+        Author
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Advanced_programming_language/">Advanced Language</a>
+          
+            <label for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Advanced Language" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Advanced Language
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Advanced_programming_language/C%2B%2B/" class="md-nav__link">
+        C++
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Advanced_programming_language/Golang/" class="md-nav__link">
+        Golang
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Advanced_programming_language/Python/" class="md-nav__link">
+        Python
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2_5">
+          Html+Css+Js
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Html+Css+Js" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Html+Css+Js
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Advanced_programming_language/Html/" class="md-nav__link">
+        Html
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Advanced_programming_language/Css/" class="md-nav__link">
+        Css
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Advanced_programming_language/JavaScript/" class="md-nav__link">
+        JavaScript
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Advanced_programming_language/lua/" class="md-nav__link">
+        Lua
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Advanced_programming_language/TypeScript/" class="md-nav__link">
+        TypeScript
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Algorithm/">Algorithm</a>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Algorithm" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Algorithm
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../">Machine_Learning</a>
+          
+            <label for="__nav_4">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Machine_Learning" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Machine_Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" checked>
+      
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_2">
+          Utils
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Utils" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Utils
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BD%BF%E7%94%A8SWIG%20%E6%8F%90%E4%BE%9Bpython%E4%B8%8Ec%2B%2B%E9%80%9A%E4%BF%A1%20%E4%BB%A5%E5%A4%87%E5%8A%A0%E9%80%9F%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        SWIG
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_4_3" type="checkbox" id="__nav_4_3" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_3">
+          Mathematical
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Mathematical" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          Mathematical
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1.Intro_Math/" class="md-nav__link">
+        1.Intro_Math
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.LinearRegression/" class="md-nav__link">
+        2.LinearRegression
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.LinearClassification/" class="md-nav__link">
+        3.LinearClassification
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4.DimentionReduction/" class="md-nav__link">
+        4.DimentionReduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5.SVM/" class="md-nav__link">
+        5.SVM
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.Exponentialfamily/" class="md-nav__link">
+        6.Exponentialfamily
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../Work/">Work</a>
+          
+            <label for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Work" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Work
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Work/byte%20dance%20%E6%95%B0%E6%8D%AE%E5%86%B7%E7%83%AD%E5%88%86%E7%A6%BB/" class="md-nav__link">
+        数据冷热分离(bytedance)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#-" class="md-nav__link">
+    有向图-贝叶斯网络
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-_1" class="md-nav__link">
+    无向图-马尔可夫网络（马尔可夫随机场）
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-_2" class="md-nav__link">
+    两种图的转换-道德图
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#-_3" class="md-nav__link">
+    更精细的分解-因子图
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    推断
+  </a>
+  
+    <nav class="md-nav" aria-label="推断">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-ve" class="md-nav__link">
+    推断-变量消除（VE）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-bp" class="md-nav__link">
+    推断-信念传播（BP）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-max-product" class="md-nav__link">
+    推断-Max-Product 算法
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="_1">概率图模型</h1>
+<p>概率图模型使用图的方式表示概率分布。为了在图中添加各种概率，首先总结一下随机变量分布的一些规则：
+$$
+\begin{align}
+&amp;Sum\ Rule:p(x_1)=\int p(x_1,x_2)dx_2\
+&amp;Product\ Rule:p(x_1,x_2)=p(x_1|x_2)p(x_2)\
+&amp;Chain\ Rule:p(x_1,x_2,\cdots,x_p)=\prod\limits_{i=1}^pp(x_i|x_{i+1,x_{i+2} \cdots}x_p)\
+&amp;Bayesian\ Rule:p(x_1|x_2)=\frac{p(x_2|x_1)p(x_1)}{p(x_2)}
+\end{align}
+$$
+可以看到，在链式法则中，如果数据维度特别高，那么的采样和计算非常困难，我们需要在一定程度上作出简化，在朴素贝叶斯中，作出了条件独立性假设。在 Markov 假设中，给定数据的维度是以时间顺序出现的，给定当前时间的维度，那么下一个维度与之前的维度独立。在 HMM 中，采用了齐次 Markov 假设。在 Markov 假设之上，更一般的，加入条件独立性假设，对维度划分集合 <span class="arithmatex">\(A,B,C\)</span>，使得 <span class="arithmatex">\(X_A\perp X_B|X_C\)</span>。</p>
+<p>概率图模型采用图的特点表示上述的条件独立性假设，节点表示随机变量，边表示条件概率。概率图模型可以分为三大理论部分：</p>
+<ol>
+<li>表示：<ol>
+<li>有向图（离散）：贝叶斯网络</li>
+<li>高斯图（连续）：高斯贝叶斯和高斯马尔可夫网路</li>
+<li>无向图（离散）：马尔可夫网络</li>
+</ol>
+</li>
+<li>推断<ol>
+<li>精确推断</li>
+<li>近似推断<ol>
+<li>确定性近似（如变分推断）</li>
+<li>随机近似（如 MCMC）</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>学习<ol>
+<li>参数学习<ol>
+<li>完备数据</li>
+<li>隐变量：E-M 算法</li>
+</ol>
+</li>
+<li>结构学习</li>
+</ol>
+</li>
+</ol>
+<h2 id="-">有向图-贝叶斯网络</h2>
+<p>已知联合分布中，各个随机变量之间的依赖关系，那么可以通过拓扑排序（根据依赖关系）可以获得一个有向图。而如果已知一个图，也可以直接得到联合概率分布的因子分解：
+$$
+p(x_1,x_2,\cdots,x_p)=\prod\limits_{i=1}^pp(x_i|x_{parent(i)})
+$$
+那么实际的图中条件独立性是如何体现的呢？在局部任何三个节点，可以有三种结构：</p>
+<ol>
+<li>
+<p><code>mermaid
+    graph TB;
+        A((A))--&gt;B((B));
+        B--&gt;C((C));</code></p>
+<div class="arithmatex">\[
+p(A,B,C)=p(A)p(B|A)p(C|B)=p(A)p(B|A)p(C|B,A)\\
+\Longrightarrow p(C|B)=p(C|B,A)\\
+\Leftrightarrow p(C|B)p(A|B)=p(C|A,B)p(A|B)=p(C,A|B)\\
+\Longrightarrow C\perp A|B
+\]</div>
+</li>
+<li>
+<p><code>mermaid
+    graph TB;
+        B((B))--&gt;A((A));
+        B--&gt;C((C));</code></p>
+<div class="arithmatex">\[
+p(A,B,C)=p(A|B)p(B)p(C|B)=p(B)p(A|B)p(C|A,B)\\
+\Longrightarrow p(C|B)=p(C|B,A)\\
+\Leftrightarrow p(C|B)p(A|B)=p(C|A,B)p(A|B)=p(C,A|B)\\
+\Longrightarrow C\perp A|B
+\]</div>
+</li>
+<li>
+<p><code>mermaid
+    graph TB;
+        A((A))--&gt;B((B));
+        C((C))--&gt;B</code></p>
+<div class="arithmatex">\[
+p(A,B,C)=p(A)p(C)p(B|C,A)=p(A)p(C|A)p(B|C,A)\\
+\Longrightarrow p(C)=p(C|A)\\
+\Leftrightarrow C\perp A\\
+\]</div>
+<p>对这种结构，<span class="arithmatex">\(A,C\)</span>不与 <span class="arithmatex">\(B\)</span>条件独立。</p>
+</li>
+</ol>
+<p>从整体的图来看，可以引入 D 划分的概念。对于类似上面图 1和图 2的关系，引入集合A，B，那么满足 <span class="arithmatex">\(A\perp B|C\)</span>的 <span class="arithmatex">\(C\)</span>集合中的点与 <span class="arithmatex">\(A,B\)</span> 中的点的关系都满足图 1，2，满足图3 关系的点都不在 <span class="arithmatex">\(C\)</span>中。D 划分应用在贝叶斯定理中：
+$$
+p(x_i|x_{-i})=\frac{p(x)}{\int p(x)dx_{i}}=\frac{\prod\limits_{j=1}^pp(x_j|x_{parents(j)})}{\int\prod\limits_{j=1}^pp(x_j|x_{parents(j)})dx_i}
+$$
+可以发现，上下部分可以分为两部分，一部分是和 <span class="arithmatex">\(x_i\)</span>相关的，另一部分是和 <span class="arithmatex">\(x_i\)</span>无关的，而这个无关的部分可以相互约掉。于是计算只涉及和 <span class="arithmatex">\(x_i\)</span>相关的部分。</p>
+<p>与 <span class="arithmatex">\(x_i\)</span>相关的部分可以写成：
+$$
+p(x_i|x_{parents(i)})p(x_{child(i)}|x_i)
+$$
+这些相关的部分又叫做 Markov 毯。</p>
+<p>实际应用的模型中，对这些条件独立性作出了假设，从单一到混合，从有限到无限（时间，空间）可以分为：</p>
+<ol>
+<li>朴素贝叶斯，单一的条件独立性假设 <span class="arithmatex">\(p(x|y)=\prod\limits_{i=1}^pp(x_i|y)\)</span>，在 D 划分后，所有条件依赖的集合就是单个元素。</li>
+<li>高斯混合模型：混合的条件独立。引入多类别的隐变量 <span class="arithmatex">\(z_1, z_2,\cdots,z_k\)</span>， <span class="arithmatex">\(p(x|z)=\mathcal{N}(\mu,\Sigma)\)</span>，条件依赖集合为多个元素。</li>
+<li>与时间相关的条件依赖<ol>
+<li>Markov 链</li>
+<li>高斯过程（无限维高斯分布）</li>
+</ol>
+</li>
+<li>连续：高斯贝叶斯网络</li>
+<li>组合上面的分类<ul>
+<li>GMM 与时序结合：动态模型<ul>
+<li>HMM（离散）</li>
+<li>线性动态系统 LDS（Kalman 滤波）</li>
+<li>粒子滤波（非高斯，非线性）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="-_1">无向图-马尔可夫网络（马尔可夫随机场）</h2>
+<p>无向图没有了类似有向图的局部不同结构，在马尔可夫网络中，也存在 D 划分的概念。直接将条件独立的集合 <span class="arithmatex">\(x_A\perp x_B|x_C\)</span>划分为三个集合。这个也叫全局 Markov。对局部的节点，<span class="arithmatex">\(x\perp (X-Neighbour(\mathcal{x}))|Neighbour(x)\)</span>。这也叫局部 Markov。对于成对的节点：<span class="arithmatex">\(x_i\perp x_j|x_{-i-j}\)</span>，其中 <span class="arithmatex">\(i,j\)</span>不能相邻。这也叫成对 Markov。事实上上面三个点局部全局成对是相互等价的。</p>
+<p>有了这个条件独立性的划分，还需要因子分解来实际计算。引入团的概念：</p>
+<blockquote>
+<p>团，最大团：图中节点的集合，集合中的节点之间相互都是连接的叫做团，如果不能再添加节点，那么叫最大团。</p>
+</blockquote>
+<p>利用这个定义进行的 <span class="arithmatex">\(x\)</span>所有维度的联合概率分布的因子分解为，假设有 <span class="arithmatex">\(K\)</span>个团，<span class="arithmatex">\(Z\)</span>就是对所有可能取值求和：
+$$
+\begin{align}p(x)=\frac{1}{Z}\prod\limits_{i=1}^{K}\phi(x_{ci})\
+Z=\sum\limits_{x\in\mathcal{X}}\prod\limits_{i=1}^{K}\phi(x_{ci})
+\end{align}
+$$
+其中 <span class="arithmatex">\(\phi(x_{ci})\)</span>叫做势函数，它必须是一个正值，可以记为：
+$$
+\phi(x_{ci})=\exp(-E(x_{ci}))
+$$
+ 这个分布叫做 Gibbs 分布（玻尔兹曼分布）。于是也可以记为：<span class="arithmatex">\(p(x)=\frac{1}{Z}\exp(-\sum\limits_{i=1}^KE(x_{ci}))\)</span>。这个分解和条件独立性等价（Hammesley-Clifford 定理），这个分布的形式也和指数族分布形式上相同，于是满足最大熵原理。</p>
+<h2 id="-_2">两种图的转换-道德图</h2>
+<p>我们常常想将有向图转为无向图，从而应用更一般的表达式。</p>
+<ol>
+<li>
+<p>链式：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>graph TB;
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>    A((A))--&gt;B((B));
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>    B--&gt;C((C));
+</code></pre></div></td></tr></table></div>
+<p>直接去掉箭头，<span class="arithmatex">\(p(a,b,c)=p(a)p(b|a)p(c|b)=\phi(a,b)\phi(b,c)\)</span>：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>graph TB;
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>    A((A))---B((B));
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a>    B---C((C));
+</code></pre></div></td></tr></table></div>
+</li>
+<li>
+<p>V 形：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>graph TB;
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>    B((B))--&gt;A((A));
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>    B--&gt;C((C));
+</code></pre></div></td></tr></table></div>
+<p>由于 <span class="arithmatex">\(p(a,b,c)=p(b)p(a|b)p(c|b)=\phi(a,b)\phi(b,c)\)</span>，直接去掉箭头：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>graph TB;
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>    B((B))---A((A));
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>    B---C((C));
+</code></pre></div></td></tr></table></div>
+</li>
+<li>
+<p>倒 V 形：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>graph TB;
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>    A((A))--&gt;B((B));
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a>    C((C))--&gt;B
+</code></pre></div></td></tr></table></div>
+<p>由于 <span class="arithmatex">\(p(a,b,c)=p(a)p(c)p(b|a,c)=\phi(a,b,c)\)</span>，于是在 <span class="arithmatex">\(a,c\)</span>之间添加线：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span>
+<span class="normal"><a href="#__codelineno-5-3">3</a></span>
+<span class="normal"><a href="#__codelineno-5-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>graph TD;
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a>    a((a))---b((b));
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a>    b---c((c));
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a>    a---c;
+</code></pre></div></td></tr></table></div>
+<p>观察着三种情况可以概括为：</p>
+<ol>
+<li>将每个节点的父节点两两相连</li>
+<li>将有向边替换为无向边</li>
+</ol>
+</li>
+</ol>
+<h2 id="-_3">更精细的分解-因子图</h2>
+<p>对于一个有向图，可以通过引入环的方式，可以将其转换为无向图（Tree-like graph），这个图就叫做道德图。但是我们上面的 BP 算法只对无环图有效，通过因子图可以变为无环图。</p>
+<p>考虑一个无向图：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span>
+<span class="normal"><a href="#__codelineno-6-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>graph TD;
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a>    a((a))---b((b));
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a>    b---c((c));
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a>    a---c;
+</code></pre></div></td></tr></table></div>
+<p>可以将其转为：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span>
+<span class="normal"><a href="#__codelineno-7-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>graph TD;
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a>    a((a))---f;
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a>    f---b((b));
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a>    f---c((c))
+</code></pre></div></td></tr></table></div>
+<p>其中 <span class="arithmatex">\(f=f(a,b,c)\)</span>。因子图不是唯一的，这是由于因式分解本身就对应一个特殊的因子图，将因式分解：<span class="arithmatex">\(p(x)=\prod\limits_{s}f_s(x_s)\)</span>可以进一步分解得到因子图。</p>
+<h2 id="_2">推断</h2>
+<p>推断的主要目的是求各种概率分布，包括边缘概率，条件概率，以及使用 MAP 来求得参数。通常推断可以分为：</p>
+<ol>
+<li>精确推断<ol>
+<li>Variable Elimination(VE)</li>
+<li>Belief Propagation(BP, Sum-Product Algo)，从 VE 发展而来</li>
+<li>Junction Tree，上面两种在树结构上应用，Junction Tree 在图结构上应用</li>
+</ol>
+</li>
+<li>近似推断<ol>
+<li>Loop Belief Propagation（针对有环图）</li>
+<li>Mente Carlo Interference：例如 Importance Sampling，MCMC</li>
+<li>Variational Inference</li>
+</ol>
+</li>
+</ol>
+<h3 id="-ve">推断-变量消除（VE）</h3>
+<p>变量消除的方法是在求解概率分布的时候，将相关的条件概率先行求和或积分，从而一步步地消除变量，例如在马尔可夫链中：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
+<span class="normal"><a href="#__codelineno-8-2">2</a></span>
+<span class="normal"><a href="#__codelineno-8-3">3</a></span>
+<span class="normal"><a href="#__codelineno-8-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>graph LR;
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a>    a((a))--&gt;b((b));
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a>    b--&gt;c((c));
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a>    c--&gt;d((d))
+</code></pre></div></td></tr></table></div>
+<div class="arithmatex">\[
+p(d)=\sum\limits_{a,b,c}p(a,b,c,d)=\sum\limits_cp(d|c)\sum\limits_bp(c|b)\sum\limits_ap(b|a)p(a)
+\]</div>
+<p>变量消除的缺点很明显：</p>
+<ol>
+<li>计算步骤无法存储</li>
+<li>消除的最优次序是一个 NP-hard 问题</li>
+</ol>
+<h3 id="-bp">推断-信念传播（BP）</h3>
+<p>为了克服 VE 的第一个缺陷-计算步骤无法存储。我们进一步地对上面的马尔可夫链进行观察：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span>
+<span class="normal"><a href="#__codelineno-9-3">3</a></span>
+<span class="normal"><a href="#__codelineno-9-4">4</a></span>
+<span class="normal"><a href="#__codelineno-9-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>graph LR;
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a>    a((a))--&gt;b((b));
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a>    b--&gt;c((c));
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a>    c--&gt;d((d));
+<a id="__codelineno-9-5" name="__codelineno-9-5"></a>    d--&gt;e((e));
+</code></pre></div></td></tr></table></div>
+<p>要求 <span class="arithmatex">\(p(e)\)</span>，当然使用 VE，从 <span class="arithmatex">\(a\)</span>一直消除到 <span class="arithmatex">\(d\)</span>，记 <span class="arithmatex">\(\sum\limits_ap(a)p(b|a)=m_{a\to b(b)}\)</span>，表示这是消除 <span class="arithmatex">\(a\)</span>后的关于 <span class="arithmatex">\(b\)</span>的概率，类似地，记 <span class="arithmatex">\(\sum\limits_bp(c|b)m_{a\to b}(b)=m_{b\to c}(c)\)</span>。于是 <span class="arithmatex">\(p(e)=\sum\limits_dp(e|d)m_{b\to c}(c)\)</span>。进一步观察，对 <span class="arithmatex">\(p(c)\)</span>：
+$$
+p(c)=[\sum\limits_bp(c|b)\sum\limits_ap(b|a)p(a)]\cdot[\sum\limits_dp(d|c)\sum\limits_ep(e)p(e|d)]
+$$
+我们发现了和上面计算 <span class="arithmatex">\(p(e)\)</span>类似的结构，这个式子可以分成两个部分，一部分是从 <span class="arithmatex">\(a\)</span>传播过来的概率，第二部分是从 <span class="arithmatex">\(e\)</span>传播过来的概率。</p>
+<p>一般地，对于图（只对树形状的图）：</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
+<span class="normal"><a href="#__codelineno-10-2">2</a></span>
+<span class="normal"><a href="#__codelineno-10-3">3</a></span>
+<span class="normal"><a href="#__codelineno-10-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>graph TD;
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a>    a((a))---b((b));
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a>    b---c((c));
+<a id="__codelineno-10-4" name="__codelineno-10-4"></a>    b---d((d));
+</code></pre></div></td></tr></table></div>
+<p>这四个团（对于无向图是团，对于有向图就是概率为除了根的节点为1），有四个节点，三个边：
+$$
+p(a,b,c,d)=\frac{1}{Z}\phi_a(a)\phi_b(b)\phi_c(c)\phi_d(d)\cdot\phi_{ab}(a,b)\phi_{bc}(c,b)\phi_{bd}(d,b)
+$$
+套用上面关于有向图的观察，如果求解边缘概率 <span class="arithmatex">\(p(a)\)</span>，定义 <span class="arithmatex">\(m_{c\to b}(b)=\sum\limits_c\phi_c(c)\phi_{bc}(bc)\)</span>，<span class="arithmatex">\(m_{d\to b}(b)=\sum\limits_d\phi_d(d)\phi_{bd}(bd)\)</span>，<span class="arithmatex">\(m_{b\to a}(a)=\sum\limits_b\phi_{ba}(ba)\phi_b(b)m_{c\to b}(b)_{d\to b}m(b)\)</span>，这样概率就一步步地传播到了 <span class="arithmatex">\(a\)</span>：
+$$
+p(a)=\phi_a(a)m_{b\to a}(a)
+$$
+写成一般的形式，对于相邻节点 <span class="arithmatex">\(i,j\)</span>：
+$$
+m_{j\to i}(i)=\sum\limits_j\phi_j(j)\phi_{ij}(ij)\prod\limits_{k\in Neighbour(j)-i}m_{k\to j}(j)
+$$
+这个表达式，就可以保存计算过程了，只要对每条边的传播分别计算，对于一个无向树形图可以递归并行实现：</p>
+<ol>
+<li>任取一个节点 <span class="arithmatex">\(a\)</span>作为根节点</li>
+<li>对这个根节点的邻居中的每一个节点，收集信息（计算入信息）</li>
+<li>对根节点的邻居，分发信息（计算出信息）</li>
+</ol>
+<h3 id="-max-product">推断-Max-Product 算法</h3>
+<p>在推断任务中，MAP 也是常常需要的，MAP 的目的是寻找最佳参数：
+$$
+(\hat{a},\hat{b},\hat{c},\hat{d})=\mathop{argmax}<em i="i" j_to="j\to">{a,b,c,d}p(a,b,c,d|E)
+$$
+类似 BP，我们采用信息传递的方式来求得最优参数，不同的是，我们在所有信息传递中，传递的是最大化参数的概率，而不是将所有可能求和：
+$$
+m</em>=\max\limits_{j}\phi_j\phi_{ij}\prod\limits_{k\in Neighbour(j)-i}m_{k\to j}
+$$
+于是对于上面的图：
+$$
+\max_a p(a,b,c,d)=\max_a\phi_a\phi_{ab}m_{c\to b}m_{d\to b}
+$$
+这个算法是 Sum-Product 算法的改进，也是在 HMM 中应用给的 Viterbi 算法的推广。</p>
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        Was this page helpful?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m7 0c0 .8-.7 1.5-1.5 1.5S14 10.3 14 9.5 14.7 8 15.5 8s1.5.7 1.5 1.5m-5 7.73c-1.75 0-3.29-.73-4.19-1.81L9.23 14c.45.72 1.52 1.23 2.77 1.23s2.32-.51 2.77-1.23l1.42 1.42c-.9 1.08-2.44 1.81-4.19 1.81Z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8 8 8 0 0 0 8-8m2 0a10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2a10 10 0 0 1 10 10m-6.5-4c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5-1.5-.7-1.5-1.5.7-1.5 1.5-1.5M10 9.5c0 .8-.7 1.5-1.5 1.5S7 10.3 7 9.5 7.7 8 8.5 8s1.5.7 1.5 1.5m2 4.5c1.75 0 3.29.72 4.19 1.81l-1.42 1.42C14.32 16.5 13.25 16 12 16s-2.32.5-2.77 1.23l-1.42-1.42C8.71 14.72 10.25 14 12 14Z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              
+                Thanks for your feedback!
+              
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              
+                Thanks for your feedback! Help us improve this page by using our <a href="..." target="_blank" rel="noopener">feedback form</a>.
+              
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["header.autohide", "navigation.tabs", "navigation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+    
+  </body>
+</html>
