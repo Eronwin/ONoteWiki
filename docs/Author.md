@@ -26,6 +26,7 @@ Shandong University of Science and Technology
 ** Blue Bridge Cup**
 
 National Second Prize in The $12^{th}$ Blue Bridge Cup Software C/C++ Programming Group
+
 National Second Prize in The $13^{th}$ Blue Bridge Cup Software Python Programming Group
 
 ** Programming Ability Test For Emerging Engineering **
