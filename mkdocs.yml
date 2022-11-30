@@ -1,4 +1,39 @@
 site_name: kekao's Blog
+site_url: https://eronwin.github.io/ONoteWiki/
+site_author: kekao
+
+nav:
+  - Home: 
+    - index.md
+    - Author:  Author.md
+  - Advanced Language:
+    - Advanced_programming_language/index.md
+    - C++: Advanced_programming_language/C++.md
+    - Golang: Advanced_programming_language/Golang.md
+    - Python: Advanced_programming_language/Python.md
+    - Html+Css+Js: 
+        - Advanced_programming_language/Html.md
+        - Advanced_programming_language/Css.md
+        - Advanced_programming_language/JavaScript.md
+    - Lua: Advanced_programming_language/lua.md
+    - TypeScript: Advanced_programming_language/TypeScript.md
+  - Algorithm:
+    - Algorithm/index.md
+    
+  - Machine_Learning:
+    - Machine_Learning/index.md
+    - Utils:
+        - SWIG: Machine_Learning/使用SWIG 提供python与c++通信 以备加速机器学习算法.md
+    - Mathematical:
+        - 1.Intro_Math: Machine_Learning/1.Intro_Math.md
+        - 2.LinearRegression:  Machine_Learning/2.LinearRegression.md
+        - 3.LinearClassification:  Machine_Learning/3.LinearClassification.md
+        - 4.DimentionReduction:  Machine_Learning/4.DimentionReduction.md
+        - 5.SVM:  Machine_Learning/5.SVM.md
+        - 6.Exponentialfamily:  Machine_Learning/6.Exponentialfamily.md
+  - Work:
+    - Work/index.md
+    - 数据冷热分离(bytedance): Work/byte dance 数据冷热分离.md
 
 theme:
   name: material
@@ -11,15 +46,35 @@ theme:
     - navigation.top
     - search.suggest
     - search.highlight
-    - content.code.annotate
 
 plugins:
   - search:
       lang: en
 
 
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
 
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
+extra_css:
+  - stylesheets/extra.css
+  - stylesheets/extra.css
 extra:
   analytics:
     feedback:
